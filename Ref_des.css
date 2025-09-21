@@ -1,0 +1,89 @@
+body {
+    font-family: Bookman Old Style;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #f7f3f3;
+   background-image: url("Image/Sub_2.jpg"); /* <--- IMPORTANT: Replace 'your-image-name.jpg' with your actual image file name and extension! */
+        background-size: cover; /* This makes the background image cover the entire element */
+        background-position: center; /* Centers the background image */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-attachment: fixed; /* Keeps the background image fixed when scrolling */
+        /* --- END OF ADDED BACKGROUND IMAGE PROPERTIES --- */
+    
+}
+
+h1 {
+    text-align: center;
+    color: #040404;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: Bahnschrift Condensed;
+}
+
+.table-container {
+    display: flex; /* Use flexbox to arrange tables side-by-side */
+    justify-content: center; /* Center the tables */
+    gap: 30px; /* Space between the two tables */
+    flex-wrap: wrap; /* Allow tables to wrap on smaller screens */
+}
+
+table {
+    width: 45%; /* Approximately half width for each table */
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #fbfafad9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #070606;
+    padding: 8px 12px;
+    text-align: left;
+    color: #070707fb;
+    font-weight: bold;
+  
+}
+
+th {
+    background-color: #a59d9de2;
+    font-weight: bold;
+    color: #070707fb;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f3f301;
+}
+
+tr:hover {
+    background-color: #ece7e7;
+}
+
+.icon-back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.icon-back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.icon-back-button img {
+  width: 40px; /* Adjust as needed */
+  height: auto;
+}
+

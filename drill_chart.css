@@ -1,0 +1,89 @@
+body {
+    font-family: Bookman Old Style;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f400;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    background-image: url("Image/Sub_2.jpg"); /* <--- IMPORTANT: Replace 'your-image-name.jpg' with your actual image file name and extension! */
+        background-size: cover; /* This makes the background image cover the entire element */
+        background-position: center; /* Centers the background image */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-attachment: fixed; /* Keeps the background image fixed when scrolling */
+        /* --- END OF ADDED BACKGROUND IMAGE PROPERTIES --- */
+    
+}
+
+.header-box {
+    background-color: #ffe0b200; /* Light orange/peach color */
+    border: 1px solid #c8a27d00; /* Darker border */
+    border-radius: 10px; /* Slightly rounded corners */
+    padding: 10px 30px;
+    margin-bottom: 40px; /* Space between header and table */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0); /* Subtle shadow */
+    text-align: center;
+}
+
+.header-box h1 {
+   text-align: center;
+    color: #040404;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: Bahnschrift Condensed;}
+ 
+.table-container {
+    background-color: #ffffff65;
+    border: 1px solid #dddddd00;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
+}
+
+table {
+    width: 100%; /* Make table take full width of its container */
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #1b1818; /* Lighter grey border for cells */
+    padding: 10px 20px;
+    text-align: center; /* Center align text in cells */
+}
+
+th {
+    background-color: solid #ffffff65;; /* Same color as header box */
+    font-weight: bold;
+    color: #010004;
+    font-size: 18px;
+}
+
+td {
+    font-size: 16px;
+    color: #0a0a0a;
+}
+
+tr:nth-child(even) {
+    background-color:  #ffffff65; /* Light stripe for even rows */
+}
+
+tr:hover {
+    background-color: #d0b3b3; /* Hover effect for rows */
+}
+.icon-back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.icon-back-button img {
+  width: 40px; /* Adjust as needed */
+  height: auto;
+}

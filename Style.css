@@ -1,0 +1,96 @@
+body {
+    background-color: #a4c0ea03;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url("Image/Sub_2.jpg"); /* <--- IMPORTANT: Replace 'your-image-name.jpg' with your actual image file name and extension! */
+        background-size: cover; /* This makes the background image cover the entire element */
+        background-position: center; /* Centers the background image */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-attachment: fixed; /* Keeps the background image fixed when scrolling */
+        /* --- END OF ADDED BACKGROUND IMAGE PROPERTIES --- */
+}
+.logo-container {
+    position: absolute;
+    top: -15px;      /* distance from top */
+    right: 10px;    /* distance from right */
+}
+
+.logo-container img {
+    height: 125px;   /* adjust as needed */
+    width: auto;
+}
+
+.ecad-library-text {
+  text-align: center;
+    color: #040404;
+    margin-top: 0px;
+    margin-bottom: 600px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: Bahnschrift Condensed;
+}
+
+.button-container {
+    position: absolute;
+    display: flex;
+    padding-left: 30px;
+    max-width: 1500px;
+    width:100%;
+    gap: 50px;
+}
+
+.button-box {
+    height: 300px;
+    width: 300px;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.button-box h3 {
+    margin-top: 0;
+}
+
+.button-box p {
+    font-size: 0.9em;
+}
+
+.button-box a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Colors */
+.blue { background-color: #1a73e8; }
+.pink { background-color: #e81a73; }
+.orange { background-color: #ff9800; }
+.dark { background-color: #333; }
+.gray { background-color: #607d8b; }
+.green { background-color: #4caf50; }
+
+.name{
+position: fixed; /* Positions the element relative to the browser window */
+  bottom: 20px;    /* Sets the distance from the bottom edge */
+  right: 20px;      /* Sets the distance from the left edge */
+
+  /* --- Optional styling --- */
+  color: rgb(18, 17, 17);
+  font-size: 1.5rem; /* 16px */
+  font-family: 'Times New Roman', Times, serif;
+}

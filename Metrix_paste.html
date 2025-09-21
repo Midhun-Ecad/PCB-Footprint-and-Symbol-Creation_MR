@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thermal Pad Dimension</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 30px;
+      text-align: center;
+    background-image: url("Image/Sub_2.jpg"); /* <--- IMPORTANT: Replace 'your-image-name.jpg' with your actual image file name and extension! */
+        background-size: cover; /* This makes the background image cover the entire element */
+        background-position: center; /* Centers the background image */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-attachment: fixed; /* Keeps the background image fixed when scrolling */
+        /* --- END OF ADDED BACKGROUND IMAGE PROPERTIES --- */
+    
+    }
+
+    h2 {
+     text-align: center;
+    color: #040404;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: Bahnschrift Condensed;
+    }
+ 
+    .input-container {
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin: 0 10px;
+      font-weight: bold;
+      color: rgb(15, 14, 14);
+    }
+
+    input[type="number"] {
+      width: 80px;
+      padding: 8px;
+      margin: 0 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0057b325;
+    }
+
+    .table-container {
+      display: flex;
+      flex-wrap: nowrap; /* Prevent wrapping to new line */
+      justify-content: center;
+      display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 6 columns */
+  gap: 20px;
+  justify-items: center;
+  padding: 20px;
+      margin-top: 20px;
+      flex-direction: row;
+    }
+
+    table {
+      border-collapse: collapse;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.962);
+      background-color: rgb(214, 223, 106);
+      transition: background-color 0.3s ease;
+    }
+
+    th, td {
+      border: 1px solid #0b0707;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .green {
+      background-color: #f1d501;
+      font-weight: bold;
+    }
+
+    .blue {
+      background-color: #03c8ea;
+      font-weight: bold;
+    }
+
+    .result {
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .green-highlight {
+      background-color: #58e80f !important;
+    }
+
+    .ratio-display {
+      margin-top: 5px;
+      font-weight: bold;
+      font-size: 14px;
+      color: #0c0c0c;
+      background-color: #f30707fe;
+    }
+
+.icon-back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.icon-back-button img {
+  width: 40px; /* Adjust as needed */
+  height: auto;
+}
+
+  </style>
+</head>
+<body>
+<button class="icon-back-button" onclick="history.back();">
+  <img src="Image/home_button_1.png" alt="Back">
+</button>
+
+  <h2>Thermal Pad Dimension</h2>
+
+  <div class="input-container">
+    <label for="e">E:</label>
+    <input type="number" id="e" step="0.01" placeholder="Enter E">
+    <label for="d">D:</label>
+    <input type="number" id="d" step="0.01" placeholder="Enter D">
+    <button onclick="calculateBoth()">Calculate</button>
+  </div>
+
+  <div class="table-container">
+    <div>
+      <!--Table 1-->
+      <table id="table1">
+        <tr><td colspan="2" class="green">2X2 ( 0.2 AG )</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx1" class="result"></span></td>
+          <td>SY<br><span id="sy1" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx1" class="result"></span></td>
+          <td>Y<br><span id="gy1" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display1" class="ratio-display"></div>
+    </div>
+     <!---Table 2-->
+    <div>
+      <table id="table2">
+        <tr><td colspan="2" class="green">2X2 ( 0.25 AG )</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx2" class="result"></span></td>
+          <td>SY<br><span id="sy2" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx2" class="result"></span></td>
+          <td>Y<br><span id="gy2" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display2" class="ratio-display"></div>
+    </div>
+    <!---Table 3-->
+    <div>
+      <table id="table3">
+        <tr><td colspan="2" class="green">3X3</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx3" class="result"></span></td>
+          <td>SY<br><span id="sy3" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx3" class="result"></span></td>
+          <td>Y<br><span id="gy3" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display3" class="ratio-display"></div>
+    </div>
+  
+<!--Table 4-->
+  <div>
+      <table id="table4">
+        <tr><td colspan="2" class="green">4X4</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx4" class="result"></span></td>
+          <td>SY<br><span id="sy4" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx4" class="result"></span></td>
+          <td>Y<br><span id="gy4" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display4" class="ratio-display"></div>
+    </div>
+<!--Table 5-->
+    <div>
+      <table id="table5">
+        <tr><td colspan="2" class="green">5X5</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx5" class="result"></span></td>
+          <td>SY<br><span id="sy5" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx5" class="result"></span></td>
+          <td>Y<br><span id="gy5" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display5" class="ratio-display"></div>
+    </div>
+    <!--Table 6-->
+    <div>
+      <table id="table6">
+        <tr><td colspan="2" class="green">6X6</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx6" class="result"></span></td>
+          <td>SY<br><span id="sy6" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx6" class="result"></span></td>
+          <td>Y<br><span id="gy6" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display6" class="ratio-display"></div>
+    </div>
+    <!--Table 7-->
+    <div>
+      <table id="table7">
+        <tr><td colspan="2" class="green">2x3 ( 0.2 AG )</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx7" class="result"></span></td>
+          <td>SY<br><span id="sy7" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx7" class="result"></span></td>
+          <td>Y<br><span id="gy7" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display7" class="ratio-display"></div>
+    </div>
+  
+
+    <!--end container-->
+  
+  
+    <!--new div-->
+    <div>
+      <table id="table8">
+        <tr><td colspan="2" class="green">2x3  ( 0.25 AG )</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx8" class="result"></span></td>
+          <td>SY<br><span id="sy8" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx8" class="result"></span></td>
+          <td>Y<br><span id="gy8" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display8" class="ratio-display"></div>
+    </div>
+    <div>
+      <!--Table 9-->
+      <table id="table9">
+        <tr><td colspan="2" class="green">2x4</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx9" class="result"></span></td>
+          <td>SY<br><span id="sy9" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx9" class="result"></span></td>
+          <td>Y<br><span id="gy9" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display9" class="ratio-display"></div>
+    </div>
+    <!--table 10-->
+    <div>
+      <table id="table10">
+        <tr><td colspan="2" class="green">2X5</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx10" class="result"></span></td>
+          <td>SY<br><span id="sy10" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx10" class="result"></span></td>
+          <td>Y<br><span id="gy10" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display10" class="ratio-display"></div>
+    </div>
+    <!--Table 11-->
+    <div>
+      <table id="table11">
+        <tr><td colspan="2" class="green">3x4</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx11" class="result"></span></td>
+          <td>SY<br><span id="sy11" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx11" class="result"></span></td>
+          <td>Y<br><span id="gy11" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display11" class="ratio-display"></div>
+    </div>
+    <!--Table 12-->
+<div>
+      <table id="table12">
+        <tr><td colspan="2" class="green">3x5</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx12" class="result"></span></td>
+          <td>SY<br><span id="sy12" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx12" class="result"></span></td>
+          <td>Y<br><span id="gy12" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display12" class="ratio-display"></div>
+    </div>
+    <!--Table 13-->
+<div>
+      <table id="table13">
+        <tr><td colspan="2" class="green">2x6</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx13" class="result"></span></td>
+          <td>SY<br><span id="sy13" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx13" class="result"></span></td>
+          <td>Y<br><span id="gy13" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display13" class="ratio-display"></div>
+    </div>
+<!--Table 14-->
+<div>
+      <table id="table14">
+        <tr><td colspan="2" class="green">3x6</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx14" class="result"></span></td>
+          <td>SY<br><span id="sy14" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx14" class="result"></span></td>
+          <td>Y<br><span id="gy14" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display14" class="ratio-display"></div>
+    </div>
+<!--Table 15-->
+<div>
+      <table id="table15">
+        <tr><td colspan="2" class="green">4X5</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx15" class="result"></span></td>
+          <td>SY<br><span id="sy15" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx15" class="result"></span></td>
+          <td>Y<br><span id="gy15" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display15" class="ratio-display"></div>
+    </div>
+
+    <!--Table 16-->
+<div>
+      <table id="table16">
+        <tr><td colspan="2" class="green">5x6</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx16" class="result"></span></td>
+          <td>SY<br><span id="sy16" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx16" class="result"></span></td>
+          <td>Y<br><span id="gy16" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display16" class="ratio-display"></div>
+    </div>
+<!--Table 17-->
+<div>
+      <table id="table17">
+        <tr><td colspan="2" class="green">5x6</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx17" class="result"></span></td>
+          <td>SY<br><span id="sy17" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx17" class="result"></span></td>
+          <td>Y<br><span id="gy17" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display17" class="ratio-display"></div>
+    </div>
+
+    <!--Table 18-->
+<div>
+      <table id="table18">
+        <tr><td colspan="2" class="green">1X2</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx18" class="result"></span></td>
+          <td>SY<br><span id="sy18" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx18" class="result"></span></td>
+          <td>Y<br><span id="gy18" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display18" class="ratio-display"></div>
+    </div>
+<!--Table 19-->
+<div>
+      <table id="table19">
+        <tr><td colspan="2" class="green">1X2 (0.1 EG )</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx19" class="result"></span></td>
+          <td>SY<br><span id="sy19" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx19" class="result"></span></td>
+          <td>Y<br><span id="gy19" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display19" class="ratio-display"></div>
+    </div>
+<!--Table 20-->
+<div>
+      <table id="table20">
+        <tr><td colspan="2" class="green">1X4</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx20" class="result"></span></td>
+          <td>SY<br><span id="sy20" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx20" class="result"></span></td>
+          <td>Y<br><span id="gy20" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display20" class="ratio-display"></div>
+    </div>
+<!--Table 21-->
+<div>
+      <table id="table21">
+        <tr><td colspan="2" class="green">1X3</td></tr>
+        <tr><td colspan="2" class="blue">Stencil Size</td></tr>
+        <tr>
+          <td>SX<br><span id="sx21" class="result"></span></td>
+          <td>SY<br><span id="sy21" class="result"></span></td>
+        </tr>
+        <tr><td colspan="2" class="blue">Grid</td></tr>
+        <tr>
+          <td>X<br><span id="gx21" class="result"></span></td>
+          <td>Y<br><span id="gy21" class="result"></span></td>
+        </tr>
+      </table>
+      <div id="ratio-display21" class="ratio-display"></div>
+    </div>
+    <!--new div end-->
+  </div>
+
+  <script>
+    function calculateBoth() {
+      let e = parseFloat(document.getElementById('e').value);
+      let d = parseFloat(document.getElementById('d').value);
+
+      if (isNaN(e) || isNaN(d)) {
+        alert("Please enter valid values for both E and D.");
+        return;
+      }
+
+      // Table 1 - 0.2 AG
+      let sx1 = (e - 0.4) / 2;
+      let sy1 = (d - 0.4) / 2;
+      let gx1 = (sx1 + 0.2) / 2;
+      let gy1 = (sy1 + 0.2) / 2;
+      let ratio1 = ((4 * sx1 * sy1) / (e * d)) * 100;
+
+      document.getElementById('sx1').innerText = sx1.toFixed(4);
+      document.getElementById('sy1').innerText = sy1.toFixed(4);
+      document.getElementById('gx1').innerText = gx1.toFixed(4);
+      document.getElementById('gy1').innerText = gy1.toFixed(4);
+      document.getElementById('ratio-display1').innerText = "Stencil Area Ratio: " + ratio1.toFixed(2) + "%";
+
+      const table1 = document.getElementById("table1");
+      table1.classList.toggle("green-highlight", ratio1 >= 75 && ratio1 <= 85);
+
+      // Table 2 - 0.25 AG
+      let sx2 = (e - 0.5) / 2;
+      let sy2 = (d - 0.5) / 2;
+      let gx2 = (sx2 + 0.25) / 2;
+      let gy2 = (sy2 + 0.25) / 2;
+      let ratio2 = ((4 * sx2 * sy2) / (e * d)) * 100;
+
+      document.getElementById('sx2').innerText = sx2.toFixed(4);
+      document.getElementById('sy2').innerText = sy2.toFixed(4);
+      document.getElementById('gx2').innerText = gx2.toFixed(4);
+      document.getElementById('gy2').innerText = gy2.toFixed(4);
+      document.getElementById('ratio-display2').innerText = "Stencil Area Ratio: " + ratio2.toFixed(2) + "%";
+
+      const table2 = document.getElementById("table2");
+      table2.classList.toggle("green-highlight", ratio2 >= 75 && ratio2 <= 85);
+
+      // Table 3 
+      let sx3 = (e - 0.6) / 3;
+      let sy3 = (d - 0.6) / 3;
+      let gx3 = (sx3 + 0.2);
+      let gy3 = (sy3 + 0.2);
+      let ratio3 = ((9 * sx3 * sy3) / (e * d)) * 100;
+
+      document.getElementById('sx3').innerText = sx3.toFixed(4);
+      document.getElementById('sy3').innerText = sy3.toFixed(4);
+      document.getElementById('gx3').innerText = gx3.toFixed(4);
+      document.getElementById('gy3').innerText = gy3.toFixed(4);
+      document.getElementById('ratio-display3').innerText = "Stencil Area Ratio: " + ratio3.toFixed(2) + "%";
+
+      const table3 = document.getElementById("table3");
+      table3.classList.toggle("green-highlight", ratio3 >= 75 && ratio3 <= 85);
+   
+// Table 4
+    
+      let sx4 = (e - 0.9) / 4;
+      let sy4 = (d - 0.9) / 4;
+      let gx4 = (sx4 + 0.2) / 2;
+      let gy4 = (sy4 + 0.2) / 2;
+      let ratio4 = ((16 * sx4 * sy4) / (e * d)) * 100;
+
+      document.getElementById('sx4').innerText = sx4.toFixed(4);
+      document.getElementById('sy4').innerText = sy4.toFixed(4);
+      document.getElementById('gx4').innerText = gx4.toFixed(4);
+      document.getElementById('gy4').innerText = gy4.toFixed(4);
+      document.getElementById('ratio-display4').innerText = "Stencil Area Ratio: " + ratio4.toFixed(2) + "%";
+
+      const table4 = document.getElementById("table4");
+      table4.classList.toggle("green-highlight", ratio4 >= 75 && ratio4 <= 85);
+
+    // Table 5
+      let sx5 = (e - 1.1) / 5;
+      let sy5 = (d - 1.1) / 5;
+      let gx5 = (sx5 + 0.2) ;
+      let gy5 = (sy5 + 0.2) ;
+      let ratio5 = ((25 * sx5 * sy5) / (e * d)) * 100;
+
+      document.getElementById('sx5').innerText = sx5.toFixed(4);
+      document.getElementById('sy5').innerText = sy5.toFixed(4);
+      document.getElementById('gx5').innerText = gx5.toFixed(4);
+      document.getElementById('gy5').innerText = gy5.toFixed(4);
+      document.getElementById('ratio-display5').innerText = "Stencil Area Ratio: " + ratio5.toFixed(2) + "%";
+
+      const table5 = document.getElementById("table5");
+      table5.classList.toggle("green-highlight", ratio5 >= 75 && ratio5 <= 85);
+
+    // Table 6
+      let sx6 = (e - 1.3) / 6;
+      let sy6 = (d - 1.3) / 6;
+      let gx6 = (sx6 + 0.2) / 2 ;
+      let gy6 = (sy6 + 0.2) / 2 ;
+      let ratio6 = ((36 * sx6 * sy6) / (e * d)) * 100;
+
+      document.getElementById('sx6').innerText = sx6.toFixed(4);
+      document.getElementById('sy6').innerText = sy6.toFixed(4);
+      document.getElementById('gx6').innerText = gx6.toFixed(4);
+      document.getElementById('gy6').innerText = gy6.toFixed(4);
+      document.getElementById('ratio-display6').innerText = "Stencil Area Ratio: " + ratio6.toFixed(2) + "%";
+
+      const table6 = document.getElementById("table6");
+      table6.classList.toggle("green-highlight", ratio6 >= 75 && ratio6 <= 85);
+    // Table 7
+      let sx7 = (e - 0.4) / 2;
+      let sy7 = (d - 0.6) / 3;
+      let gx7 = (sx7 + 0.2) / 2 ;
+      let gy7 = (sy7 + 0.2);
+      let ratio7 = ((6 * sx7 * sy7) / (e * d)) * 100;
+
+      document.getElementById('sx7').innerText = sx7.toFixed(4);
+      document.getElementById('sy7').innerText = sy7.toFixed(4);
+      document.getElementById('gx7').innerText = gx7.toFixed(4);
+      document.getElementById('gy7').innerText = gy7.toFixed(4);
+      document.getElementById('ratio-display7').innerText = "Stencil Area Ratio: " + ratio7.toFixed(2) + "%";
+
+      const table7 = document.getElementById("table7");
+      table7.classList.toggle("green-highlight", ratio7 >= 75 && ratio7 <= 85);
+
+    // Table 8
+      let sx8 = (e - 0.5) / 2;
+      let sy8 = (d - 0.7) / 3;
+      let gx8 = (sx8 + 0.5) / 2 ;
+      let gy8 = (sy8 + 0.5);
+      let ratio8 = ((6 * sx8 * sy8) / (e * d)) * 100;
+
+      document.getElementById('sx8').innerText = sx8.toFixed(4);
+      document.getElementById('sy8').innerText = sy8.toFixed(4);
+      document.getElementById('gx8').innerText = gx8.toFixed(4);
+      document.getElementById('gy8').innerText = gy8.toFixed(4);
+      document.getElementById('ratio-display8').innerText = "Stencil Area Ratio: " + ratio8.toFixed(2) + "%";
+
+      const table8 = document.getElementById("table8");
+      table8.classList.toggle("green-highlight", ratio8 >= 75 && ratio8 <= 85);
+    // Table 9
+      let sx9 = (e - 0.5) / 2;
+      let sy9 = (d - 0.9) / 4;
+      let gx9 = (sx9 + 0.2) / 2 ;
+      let gy9 = (sy9 + 0.2) / 2;
+      let ratio9 = ((8 * sx9 * sy9) / (e * d)) * 100;
+
+      document.getElementById('sx9').innerText = sx9.toFixed(4);
+      document.getElementById('sy9').innerText = sy9.toFixed(4);
+      document.getElementById('gx9').innerText = gx9.toFixed(4);
+      document.getElementById('gy9').innerText = gy9.toFixed(4);
+      document.getElementById('ratio-display9').innerText = "Stencil Area Ratio: " + ratio9.toFixed(2) + "%";
+
+      const table9 = document.getElementById("table9");
+      table9.classList.toggle("green-highlight", ratio9 >= 75 && ratio9 <= 85);
+    // Table 10
+      let sx10 = (e - 0.5) / 2;
+      let sy10 = (d - 1.1) / 5;
+      let gx10 = (sx10 + 0.2) / 2 ;
+      let gy10 = (sy10 + 0.2) ;
+      let ratio10 = ((10 * sx10 * sy10) / (e * d)) * 100;
+
+      document.getElementById('sx10').innerText = sx10.toFixed(4);
+      document.getElementById('sy10').innerText = sy10.toFixed(4);
+      document.getElementById('gx10').innerText = gx10.toFixed(4);
+      document.getElementById('gy10').innerText = gy10.toFixed(4);
+      document.getElementById('ratio-display10').innerText = "Stencil Area Ratio: " + ratio10.toFixed(2) + "%";
+
+      const table10 = document.getElementById("table10");
+      table10.classList.toggle("green-highlight", ratio10 >= 75 && ratio10 <= 85);
+    // Table 11
+      let sx11 = (e - 0.7) / 3;
+      let sy11 = (d - 0.9) / 4;
+      let gx11 = (sx11 + 0.2) ;
+      let gy11 = (sy11 + 0.2)/2 ;
+      let ratio11 = ((12 * sx11 * sy11) / (e * d)) * 100;
+
+      document.getElementById('sx11').innerText = sx11.toFixed(4);
+      document.getElementById('sy11').innerText = sy11.toFixed(4);
+      document.getElementById('gx11').innerText = gx11.toFixed(4);
+      document.getElementById('gy11').innerText = gy11.toFixed(4);
+      document.getElementById('ratio-display11').innerText = "Stencil Area Ratio: " + ratio11.toFixed(2) + "%";
+
+      const table11 = document.getElementById("table11");
+      table11.classList.toggle("green-highlight", ratio11 >= 75 && ratio11 <= 85);
+    // Table 12
+      let sx12 = (e - 0.7) / 3;
+      let sy12 = (d - 1.1) / 5;
+      let gx12 = (sx12 + 0.2) ;
+      let gy12 = (sy12 + 0.2);
+      let ratio12 = ((15 * sx12 * sy12) / (e * d)) * 100;
+
+      document.getElementById('sx12').innerText = sx12.toFixed(4);
+      document.getElementById('sy12').innerText = sy12.toFixed(4);
+      document.getElementById('gx12').innerText = gx12.toFixed(4);
+      document.getElementById('gy12').innerText = gy12.toFixed(4);
+      document.getElementById('ratio-display12').innerText = "Stencil Area Ratio: " + ratio12.toFixed(2) + "%";
+
+      const table12 = document.getElementById("table12");
+      table12.classList.toggle("green-highlight", ratio12 >= 75 && ratio12 <= 85);
+
+     // Table 13
+      let sx13 = (e - 0.5) / 2;
+      let sy13 = (d - 1.3) / 6;
+      let gx13 = (sx13 + 0.2) /2 ;
+      let gy13 = (sy13 + 0.2) /2 ;
+      let ratio13 = ((12 * sx13 * sy13) / (e * d)) * 100;
+
+      document.getElementById('sx13').innerText = sx13.toFixed(4);
+      document.getElementById('sy13').innerText = sy13.toFixed(4);
+      document.getElementById('gx13').innerText = gx13.toFixed(4);
+      document.getElementById('gy13').innerText = gy13.toFixed(4);
+      document.getElementById('ratio-display13').innerText = "Stencil Area Ratio: " + ratio13.toFixed(2) + "%";
+
+      const table13 = document.getElementById("table13");
+      table13.classList.toggle("green-highlight", ratio13 >= 75 && ratio13 <= 85);
+
+      // Table 14
+      let sx14 = (e - 0.7) / 3;
+      let sy14 = (d - 1.3) / 6;
+      let gx14 = (sx14 + 0.2) ;
+      let gy14 = (sy14 + 0.2) /2 ;
+      let ratio14 = ((18 * sx14 * sy14) / (e * d)) * 100;
+
+      document.getElementById('sx14').innerText = sx14.toFixed(4);
+      document.getElementById('sy14').innerText = sy14.toFixed(4);
+      document.getElementById('gx14').innerText = gx14.toFixed(4);
+      document.getElementById('gy14').innerText = gy14.toFixed(4);
+      document.getElementById('ratio-display14').innerText = "Stencil Area Ratio: " + ratio14.toFixed(2) + "%";
+
+      const table14 = document.getElementById("table14");
+      table14.classList.toggle("green-highlight", ratio14 >= 75 && ratio14 <= 85);
+
+ // Table 15
+      let sx15 = (e - 0.9) / 4;
+      let sy15 = (d - 1.1) / 5;
+      let gx15 = (sx15 + 0.2) /2 ;
+      let gy15 = (sy15 + 0.2) ;
+      let ratio15 = ((20 * sx15 * sy15) / (e * d)) * 100;
+
+      document.getElementById('sx15').innerText = sx15.toFixed(4);
+      document.getElementById('sy15').innerText = sy15.toFixed(4);
+      document.getElementById('gx15').innerText = gx15.toFixed(4);
+      document.getElementById('gy15').innerText = gy15.toFixed(4);
+      document.getElementById('ratio-display15').innerText = "Stencil Area Ratio: " + ratio15.toFixed(2) + "%";
+
+      const table15 = document.getElementById("table15");
+      table15.classList.toggle("green-highlight", ratio15 >= 75 && ratio15 <= 85);
+
+     // Table 16
+      let sx16 = (e - 1.1) / 5;
+      let sy16 = (d - 1.3) / 6;
+      let gx16 = (sx16 + 0.2) ;
+      let gy16 = (sy16 + 0.2) / 2 ;
+      let ratio16 = ((30 * sx16 * sy16) / (e * d)) * 100;
+
+      document.getElementById('sx16').innerText = sx16.toFixed(4);
+      document.getElementById('sy16').innerText = sy16.toFixed(4);
+      document.getElementById('gx16').innerText = gx16.toFixed(4);
+      document.getElementById('gy16').innerText = gy16.toFixed(4);
+      document.getElementById('ratio-display16').innerText = "Stencil Area Ratio: " + ratio16.toFixed(2) + "%";
+
+      const table16 = document.getElementById("table16");
+      table16.classList.toggle("green-highlight", ratio16 >= 75 && ratio16 <= 85);
+
+      // Table 17
+      let sx17 = (e - 0.9) / 4;
+      let sy17 = (d - 1.3) / 6;
+      let gx17 = (sx17 + 0.2) / 2 ;
+      let gy17 = (sy17 + 0.2) / 2 ;
+      let ratio17 = ((24 * sx17 * sy17) / (e * d)) * 100;
+
+      document.getElementById('sx17').innerText = sx17.toFixed(4);
+      document.getElementById('sy17').innerText = sy17.toFixed(4);
+      document.getElementById('gx17').innerText = gx17.toFixed(4);
+      document.getElementById('gy17').innerText = gy17.toFixed(4);
+      document.getElementById('ratio-display17').innerText = "Stencil Area Ratio: " + ratio17.toFixed(2) + "%";
+
+      const table17 = document.getElementById("table17");
+      table17.classList.toggle("green-highlight", ratio17 >= 75 && ratio17 <= 85);
+
+
+// Table 18
+      let sx18 = (e - 0.3);
+      let sy18 = (d - 0.5) / 2;
+      let gx18 = 0 ;
+      let gy18 = (sy18 + 0.2) / 2 ;
+      let ratio18 = ((2 * sx18 * sy18) / (e * d)) * 100;
+
+      document.getElementById('sx18').innerText = sx18.toFixed(4);
+      document.getElementById('sy18').innerText = sy18.toFixed(4);
+      document.getElementById('gx18').innerText = gx18.toFixed(4);
+      document.getElementById('gy18').innerText = gy18.toFixed(4);
+      document.getElementById('ratio-display18').innerText = "Stencil Area Ratio: " + ratio18.toFixed(2) + "%";
+
+      const table18 = document.getElementById("table18");
+      table18.classList.toggle("green-highlight", ratio18 >= 75 && ratio18 <= 85);
+// Table 19
+      let sx19 = (e - 0.2);
+      let sy19 = (d - 0.4) / 2;
+      let gx19 = 0 ;
+      let gy19 = (sy19 + 0.2) / 2 ;
+      let ratio19 = ((2 * sx19 * sy19) / (e * d)) * 100;
+
+      document.getElementById('sx19').innerText = sx19.toFixed(4);
+      document.getElementById('sy19').innerText = sy19.toFixed(4);
+      document.getElementById('gx19').innerText = gx19.toFixed(4);
+      document.getElementById('gy19').innerText = gy19.toFixed(4);
+      document.getElementById('ratio-display19').innerText = "Stencil Area Ratio: " + ratio19.toFixed(2) + "%";
+
+      const table19 = document.getElementById("table19");
+      table19.classList.toggle("green-highlight", ratio19 >= 75 && ratio19 <= 85);
+// Table 20
+      let sx20 = (e - 0.3);
+      let sy20 = (d - 0.9) / 4;
+      let gx20 = 0 ;
+      let gy20 = (sy20 + 0.2) / 2 ;
+      let ratio20 = ((4 * sx20 * sy20) / (e * d)) * 100;
+
+      document.getElementById('sx20').innerText = sx20.toFixed(4);
+      document.getElementById('sy20').innerText = sy20.toFixed(4);
+      document.getElementById('gx20').innerText = gx20.toFixed(4);
+      document.getElementById('gy20').innerText = gy20.toFixed(4);
+      document.getElementById('ratio-display20').innerText = "Stencil Area Ratio: " + ratio20.toFixed(2) + "%";
+
+      const table20 = document.getElementById("table20");
+      table20.classList.toggle("green-highlight", ratio20 >= 75 && ratio20 <= 85);
+
+      // Table 21
+      let sx21 = (e - 0.3);
+      let sy21 = (d - 0.7) / 3;
+      let gx21 = 0 ;
+      let gy21 = (sy21 + 0.2) / 2 ;
+      let ratio21 = ((3 * sx21 * sy21) / (e * d)) * 100;
+
+      document.getElementById('sx21').innerText = sx21.toFixed(4);
+      document.getElementById('sy21').innerText = sy21.toFixed(4);
+      document.getElementById('gx21').innerText = gx21.toFixed(4);
+      document.getElementById('gy21').innerText = gy21.toFixed(4);
+      document.getElementById('ratio-display21').innerText = "Stencil Area Ratio: " + ratio21.toFixed(2) + "%";
+
+      const table21 = document.getElementById("table21");
+      table21.classList.toggle("green-highlight", ratio21 >= 75 && ratio21 <= 85);
+    }
+  </script>
+
+
+</body>
+</html>

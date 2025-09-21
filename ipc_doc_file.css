@@ -1,0 +1,86 @@
+body {
+    font-family: Bookman Old Style;
+    /* Removed background-color here if you want the image to show through or cover it */
+    background-color: #160b0b; /* Keep this as a fallback if the image doesn't load */
+
+    background-image: url("Image/Sub_2.jpg"); /* <--- IMPORTANT: Replace 'your-image-name.jpg' with your actual image file name and extension! */
+        background-size: cover; /* This makes the background image cover the entire element */
+        background-position: center; /* Centers the background image */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-attachment: fixed; /* Keeps the background image fixed when scrolling */
+        /* --- END OF ADDED BACKGROUND IMAGE PROPERTIES --- */
+    
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 50px;
+}
+
+.container {
+    background-color: #ffffff00; /* White background for the content area */
+    border: 1px solid #cccccc00; /* Light gray border, like spreadsheet cells */
+    padding: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0); /* Subtle shadow for depth */
+    width: 80%;
+    max-width: 800px;
+    box-sizing: border-box;
+    /* Optional: If you want the container to be slightly transparent to see the background image */
+    /* background-color: rgba(255, 255, 255, 0.9); */ /* Example: 90% opaque white */
+}
+
+h1 {
+    text-align: center;
+    color: #040404;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: Bahnschrift Condensed;
+}
+
+.pdf-list p {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeee00;
+}
+
+.pdf-list p:last-child {
+    border-bottom: none;
+}
+
+.pdf-list a {
+    color: #080808;
+    text-decoration: none;
+    font-size: 1.5em;
+    padding-left: 5px;
+    padding-top :50px;
+    display: block;
+
+}
+
+.pdf-list a:hover {
+    text-decoration: underline;
+    color: #ed0505;
+}
+
+
+.icon-back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.icon-back-button img {
+  width: 40px; /* Adjust as needed */
+  height: auto;
+}
+
+

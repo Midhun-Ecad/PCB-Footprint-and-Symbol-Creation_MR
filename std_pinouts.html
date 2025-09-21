@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard Pinout </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f4f400;
+            background-image: url("Image/Sub_2.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .left {
+            width: 25%;
+            background: #2c3e5046;
+            color: rgb(248, 246, 246);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .left h2 {
+            margin: 0 0 20px 0;
+            border-bottom: 2px solid #1abc9c;
+            padding-bottom: 10px;
+            color: rgb(14, 13, 13);
+        }
+        .menu-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #34495e;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .menu-item:hover, .menu-item.active {
+            background: #bc1a1af5;
+        }
+        .right {
+            width: 75%;
+            padding: 70px;
+            background: rgba(255, 255, 255, 0);
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+        .form-section {
+            flex: 1;
+            /* Add styles for the form-section here if needed */
+        }
+        
+        /* New CSS for the D Sub 9P tables */
+        .pinout-tables-container {
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .pinout-title {
+            margin-top: 0px;
+            font-size: 1.5em;
+            color: #20023c;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        .tables-wrapper {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .table-wrapper {
+            flex: 1;
+            min-width: 300px;
+        }
+        .table-wrapper h2 {
+            background-color: #f7b28a;
+            color: #333;
+            padding: 10px;
+            margin-bottom: 0;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        thead th {
+            background-color: #b28a05;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: normal;
+            font-size: 0.9em;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #131212;
+            color: #0c0c0c;
+
+        }
+        .table-container {
+            background-color: #ffffff00;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+            width: 100%;
+            max-width: 1000px;
+        }
+        
+        .main-title {
+            text-align: center;
+            font-size: 1.5em;
+            color: #20023c;
+            margin-bottom: 10px;
+            margin-top: 0px;
+
+        }
+
+        .columns-wrapper {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        thead th {
+            background-color: #067046;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: normal;
+            border: 1px solid #ddd;
+        }
+
+        tbody td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #121111;
+            background-color: #f5f6f7f7;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #eca409;
+        }
+        
+        h2{ 
+            text-align: center;
+            color: #040404;
+            margin-top: -40px;
+            margin-bottom: 0px;
+            font-size: 2em;
+            font-weight: bold;
+            font-family: Bahnschrift Condensed;}
+        .form-section {
+            flex: 1;
+            }
+
+            .icon-back-button {
+     position: absolute;
+     top: 20px;
+     right: 20px;
+     background: none;
+     border: none;
+     padding: 0;
+     cursor: pointer;
+     z-index: 1000;
+    }
+
+    .icon-back-button img {
+     width: 40px; /* Adjust as needed */
+     height: auto;
+    }
+
+    
+        
+    </style>
+</head>
+<body>
+    <button class="icon-back-button" onclick="history.back();">
+  <img src="Image/home_button_1.png" alt="Back">
+</button>
+
+<div class="container">
+    <div class="left">
+        <h2>Component</h2>
+        <div class="menu-item active" onclick="showContent('com1')">D Sub 9P</div>
+        <div class="menu-item" onclick="showContent('com2')">D Sub 25P</div>
+        <div class="menu-item" onclick="showContent('com3')">QSFP-DD</div>
+        <div class="menu-item" onclick="showContent('com4')">QSFP-28</div>
+        <div class="menu-item" onclick="showContent('com5')">QSFP-56</div>
+        <div class="menu-item" onclick="showContent('com6')">USB Type C</div>
+        <div class="menu-item" onclick="showContent('com7')">USB Type A</div>
+        <div class="menu-item" onclick="showContent('com8')">USB micro A and B</div>
+    </div>
+    <div class="right">
+        
+        <div class="form-section">
+            <h2>Standard Pinouts</h2><br><br>
+            <div id="content-container"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const content = {
+        com1: `
+            <div class="pinout-tables-container">
+                <h1 class="pinout-title">D Sub 9P</h1>
+                <div class="tables-wrapper">
+                    <div class="table-wrapper">
+                        <h2>Male</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pin No.</th>
+                                    <th>Signal</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>DCD</td><td>Data Carrier Detect</td></tr>
+                                <tr><td>2</td><td>RXD</td><td>Receive Data</td></tr>
+                                <tr><td>3</td><td>TXD</td><td>Transmit Data</td></tr>
+                                <tr><td>4</td><td>DTR</td><td>Data Terminal Ready</td></tr>
+                                <tr><td>5</td><td>GND</td><td>Ground</td></tr>
+                                <tr><td>6</td><td>DSR</td><td>Data Set Ready</td></tr>
+                                <tr><td>7</td><td>RTS</td><td>Request To Send</td></tr>
+                                <tr><td>8</td><td>CTS</td><td>Clear To Send</td></tr>
+                                <tr><td>9</td><td>RI</td><td>Ring Indicator</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-wrapper">
+                        <h2>Female</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pin No.</th>
+                                    <th>Signal</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>DCD</td><td>Data Carrier Detect</td></tr>
+                                <tr><td>2</td><td>TXD</td><td>Transmit Data</td></tr>
+                                <tr><td>3</td><td>RXD</td><td>Receive Data</td></tr>
+                                <tr><td>4</td><td>DTR</td><td>Data Terminal Ready</td></tr>
+                                <tr><td>5</td><td>GND</td><td>Ground</td></tr>
+                                <tr><td>6</td><td>DSR</td><td>Data Set Ready</td></tr>
+                                <tr><td>7</td><td>CTS</td><td>Clear To Send</td></tr>
+                                <tr><td>8</td><td>RTS</td><td>Request To Send</td></tr>
+                                <tr><td>9</td><td>RI</td><td>Ring Indicator</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        `,
+        com2: `<div class="pinout-tables-container">
+        <h1 class="pinout-title">D Sub 25P</h1>
+        
+        <div class="tables-wrapper">
+            <div class="table-wrapper">
+                <h2>Male</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pin No.</th>
+                            <th>Signal</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>GND</td><td>Protective ground</td></tr>
+                        <tr><td>2</td><td>TXD</td><td>Transmit Data</td></tr>
+                        <tr><td>3</td><td>RXD</td><td>Receive Data</td></tr>
+                        <tr><td>4</td><td>RTS</td><td>Request To Send</td></tr>
+                        <tr><td>5</td><td>CTS</td><td>Clear To Send</td></tr>
+                        <tr><td>6</td><td>DSR</td><td>Data Set Ready</td></tr>
+                        <tr><td>7</td><td>GND</td><td>Signal Ground</td></tr>
+                        <tr><td>8</td><td>DCD</td><td>Data Carrier Detect</td></tr>
+                        <tr><td>9</td><td>—</td><td>test pin</td></tr>
+                        <tr><td>10</td><td>—</td><td>test pin</td></tr>
+                        <tr><td>11</td><td>—</td><td>unused</td></tr>
+                        <tr><td>12</td><td>DCD 2</td><td>Data Carrier Detect (2)</td></tr>
+                        <tr><td>13</td><td>CTS 2</td><td>Clear To Send (2)</td></tr>
+                        <tr><td>14</td><td>TXD 2</td><td>Transmit Data (2)</td></tr>
+                        <tr><td>15</td><td>DCE</td><td>Transmitter Clock</td></tr>
+                        <tr><td>16</td><td>RXD 2</td><td>Receive Data (2)</td></tr>
+                        <tr><td>17</td><td>RXC</td><td>Receiver Clock</td></tr>
+                        <tr><td>18</td><td>—</td><td>unused</td></tr>
+                        <tr><td>19</td><td>RTS 2</td><td>Request To Send (2)</td></tr>
+                        <tr><td>20</td><td>DTR</td><td>Data Terminal Ready</td></tr>
+                        <tr><td>21</td><td>SQD</td><td>Signal Quality Detector</td></tr>
+                        <tr><td>22</td><td>RI</td><td>Ring Indicator</td></tr>
+                        <tr><td>23</td><td>DSRD</td><td>Data Signal Rate Detector</td></tr>
+                        <tr><td>24</td><td>DCE</td><td>Transmitter Clock</td></tr>
+                        <tr><td>25</td><td>—</td><td>unused</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-wrapper">
+                <h2>Female</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pin No.</th>
+                            <th>Signal</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>GND</td><td>Protective ground</td></tr>
+                        <tr><td>2</td><td>RXD</td><td>Receive Data</td></tr>
+                        <tr><td>3</td><td>TXD</td><td>Transmit Data</td></tr>
+                        <tr><td>4</td><td>CTS</td><td>Clear To Send</td></tr>
+                        <tr><td>5</td><td>RTS</td><td>Request To Send</td></tr>
+                        <tr><td>6</td><td>DSR</td><td>Data Set Ready</td></tr>
+                        <tr><td>7</td><td>GND</td><td>Signal Ground</td></tr>
+                        <tr><td>8</td><td>DCD</td><td>Data Carrier Detect</td></tr>
+                        <tr><td>9</td><td>—</td><td>test pin</td></tr>
+                        <tr><td>10</td><td>—</td><td>test pin</td></tr>
+                        <tr><td>11</td><td>—</td><td>unused</td></tr>
+                        <tr><td>12</td><td>DCD 2</td><td>Data Carrier Detect (2)</td></tr>
+                        <tr><td>13</td><td>RTS 2</td><td>Request To Send (2)</td></tr>
+                        <tr><td>14</td><td>RXD 2</td><td>Receive Data (2)</td></tr>
+                        <tr><td>15</td><td>DCE</td><td>Transmitter Clock</td></tr>
+                        <tr><td>16</td><td>TXD 2</td><td>Transmit Data (2)</td></tr>
+                        <tr><td>17</td><td>RXC</td><td>Receiver Clock</td></tr>
+                        <tr><td>18</td><td>—</td><td>unused</td></tr>
+                        <tr><td>19</td><td>CTS 2</td><td>Clear To Send (2)</td></tr>
+                        <tr><td>20</td><td>DSR</td><td>Data Set Ready</td></tr>
+                        <tr><td>21</td><td>SQD</td><td>Signal Quality Detector</td></tr>
+                        <tr><td>22</td><td>RI</td><td>Ring Indicator</td></tr>
+                        <tr><td>23</td><td>DSRD</td><td>Data Signal Rate Detector</td></tr>
+                        <tr><td>24</td><td>DCE</td><td>Transmitter Clock</td></tr>
+                        <tr><td>25</td><td>—</td><td>unused</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html></div>`,
+        com3: `<div class="table-container">
+        <h1 class="main-title">QSFP DD</h1>
+    
+        <div class="columns-wrapper">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>2</td><td>Tx2p</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>3</td><td>Tx2n</td><td>Transmitter Non-Inverted Data Input</td></tr>
+                    <tr><td>4</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>5</td><td>Tx4n</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>6</td><td>Tx4p</td><td>Transmitter Non-Inverted Data Input</td></tr>
+                    <tr><td>7</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>8</td><td>ModSell</td><td>Module Select</td></tr>
+                    <tr><td>9</td><td>Resell</td><td>Reset Module</td></tr>
+                    <tr><td>10</td><td>Vcc Rx</td><td>+3.3V Power Supply Receiver</td></tr>
+                    <tr><td>11</td><td>SCL</td><td>2-wire Serial Interface Clock</td></tr>
+                    <tr><td>12</td><td>SDA</td><td>2-wire Serial Interface Data</td></tr>
+                    <tr><td>13</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>14</td><td>Rx3p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>15</td><td>Rx3n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>16</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>17</td><td>Rx1p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>18</td><td>Rx1n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>19</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>20</td><td>Rx2n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>21</td><td>Rx2p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>22</td><td>GND</td><td>Grounds</td></tr>
+                    <tr><td>23</td><td>Rx4n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>24</td><td>Rx4p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>25</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>26</td><td>ModPrsl</td><td>Module Present</td></tr>
+                    <tr><td>27</td><td>IntL</td><td>Interrupt</td></tr>
+                    <tr><td>28</td><td>Vcc Tx</td><td>+3.3V Power Supply Transmitter</td></tr>
+                    <tr><td>29</td><td>Vcc1</td><td>+3.3V Power Supply</td></tr>
+                    <tr><td>30</td><td>LP-Mode</td><td>Low Power Mode</td></tr>
+                    <tr><td>31</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>32</td><td>Tx3p</td><td>Transmitter Non-Inverted Data Input</td></tr>
+                    <tr><td>33</td><td>Tx3n</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>34</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>35</td><td>Tx1p</td><td>Transmitter Non-Inverted Data Input</td></tr>
+                    <tr><td>36</td><td>Tx1n</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>37</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>38</td><td>—</td><td>Ground</td></tr>
+                </tbody>
+            </table>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>39</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>40</td><td>Tx6p</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>41</td><td>Tx6n</td><td>Transmitter Non-Inverted Data Input</td></tr>
+                    <tr><td>42</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>43</td><td>Tx8n</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>44</td><td>Tx8p</td><td>Transmitter Non-Inverted Data Input</td></tr>
+                    <tr><td>45</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>46</td><td>Reserved</td><td>For future use</td></tr>
+                    <tr><td>47</td><td>VS1</td><td>Module Vendor Specific 1</td></tr>
+                    <tr><td>48</td><td>VccRx1</td><td>3.3V Power Supply</td></tr>
+                    <tr><td>49</td><td>VS2</td><td>Module Vendor Specific 2</td></tr>
+                    <tr><td>50</td><td>VS3</td><td>Module Vendor Specific 3</td></tr>
+                    <tr><td>51</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>52</td><td>Rx7p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>53</td><td>Rx7n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>54</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>55</td><td>Rx5p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>56</td><td>Rx5n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>57</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>58</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>59</td><td>Rx6n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>60</td><td>Rx6p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>61</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>62</td><td>Rx8n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>63</td><td>Rx8p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>64</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>65</td><td>NC</td><td>No Connect</td></tr>
+                    <tr><td>66</td><td>Reserved</td><td>For Future Use</td></tr>
+                    <tr><td>67</td><td>VccTx1</td><td>3.3V Power Supply</td></tr>
+                    <tr><td>68</td><td>Vcc2</td><td>3.3V Power Supply</td></tr>
+                    <tr><td>69</td><td>Reserved</td><td>For Future Use</td></tr>
+                    <tr><td>70</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>71</td><td>Tx7p</td><td>Transmitter Non-Inverted Data Input</td></tr>
+                    <tr><td>72</td><td>Tx7n</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>73</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>74</td><td>Tx5p</td><td>Transmitter Non-Inverted Data Input</td></tr>
+                    <tr><td>75</td><td>Tx5n</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>76</td><td>GND</td><td>Ground</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>`,
+        com4:`<div class="table-container">
+        <h1 class="main-title">QSFP 28</h1>
+    
+        <div class="columns-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>2</td><td>TX2n</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>3</td><td>TX2p</td><td>Transmitter Non-Inverted Data Output</td></tr>
+                    <tr><td>4</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>5</td><td>TX4n</td><td>Transmitter Inverted Data Input</td></tr>
+                    <tr><td>6</td><td>TX4p</td><td>Transmitter Non-Inverted Data Output</td></tr>
+                    <tr><td>7</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>8</td><td>ModSell</td><td>Module Select</td></tr>
+                    <tr><td>9</td><td>ResetL</td><td>Module Reset</td></tr>
+                    <tr><td>10</td><td>VccRX</td><td>+3.3V Power Supply Receiver</td></tr>
+                    <tr><td>11</td><td>SCL</td><td>2-Wire Serial Interface Clock</td></tr>
+                    <tr><td>12</td><td>SDA</td><td>2-Wire Serial Interface Data</td></tr>
+                    <tr><td>13</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>14</td><td>RX3p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>15</td><td>RX3n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>16</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>17</td><td>RX1p</td><td>Receiver Non-Inverted Data Output</td></tr>
+                    <tr><td>18</td><td>RX1n</td><td>Receiver Inverted Data Output</td></tr>
+                    <tr><td>19</td><td>GND</td><td>Ground</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+</thead>
+<tbody>
+<tr><td>20</td><td>GND</td><td>Ground</td></tr>
+<tr><td>21</td><td>RX2n</td><td>Receiver Inverted Data Output</td></tr>
+<tr><td>22</td><td>RX2p</td><td>Receiver Non-Inverted Data Output</td></tr>
+<tr><td>23</td><td>GND</td><td>Ground</td></tr>
+<tr><td>24</td><td>RX4n</td><td>Receiver Inverted Data Output</td></tr>
+<tr><td>25</td><td>RX4p</td><td>Receiver Non-Inverted Data Output</td></tr>
+<tr><td>26</td><td>GND</td><td>Ground</td></tr>
+<tr><td>27</td><td>ModPrsl</td><td>Module Present</td></tr>
+<tr><td>28</td><td>IntL</td><td>Interrupt</td></tr>
+<tr><td>29</td><td>VccTX</td><td>+3.3V Power Supply Transmitter</td></tr>
+<tr><td>30</td><td>Vcc1</td><td>+3.3V Power Supply</td></tr>
+<tr><td>31</td><td>LPMode</td><td>Low Power Mode</td></tr>
+<tr><td>32</td><td>GND</td><td>Ground</td></tr>
+<tr><td>33</td><td>TX3p</td><td>Transmitter Non-Inverted Data Input</td></tr>
+<tr><td>34</td><td>TX3n</td><td>Transmitter Inverted Data Input</td></tr>
+<tr><td>35</td><td>GND</td><td>Ground</td></tr>
+<tr><td>36</td><td>TX1p</td><td>Transmitter Non-Inverted Data Input</td></tr>
+<tr><td>37</td><td>TX1n</td><td>Transmitter Inverted Data Input</td></tr>
+<tr><td>38</td><td>GND</td><td>Ground</td></tr>
+</tbody>
+</table>
+</div>
+</div>`,
+
+        com5: `<div class="table-container">
+        <h1 class="main-title">QSFP 56</h1>
+    
+        <div class="columns-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>2</td><td>Tx2n</td><td>Connected to Port 1 lane Rx2 Inverted Data</td></tr>
+                    <tr><td>3</td><td>Tx2p</td><td>Connected to Port 1 lane Rx2 Non-Inverted Data</td></tr>
+                    <tr><td>4</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>5</td><td>TX4n</td><td>Connected to Port 2 lane Rx2 Non-Inverted Data</td></tr>
+                    <tr><td>6</td><td>Tx4p</td><td>Connected to Port 2 lane Rx2 Inverted Data</td></tr>
+                    <tr><td>7</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>8</td><td>Mod-Sell</td><td>Cable Select</td></tr>
+                    <tr><td>9</td><td>ResetL</td><td>Cable Reset</td></tr>
+                    <tr><td>10</td><td>Vcc Rx</td><td>+3.3V power supply receiver</td></tr>
+                    <tr><td>11</td><td>SCL</td><td>2-wire serial interface clock</td></tr>
+                    <tr><td>12</td><td>SDA</td><td>2-wire serial interface data</td></tr>
+                    <tr><td>13</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>14</td><td>Rx3p</td><td>Connected to Port 2 lane Tx1 Non-Inverted Data</td></tr>
+                    <tr><td>15</td><td>Rx3n</td><td>Connected to Port 2 lane Tx1 Inverted Data</td></tr>
+                    <tr><td>16</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>17</td><td>Rx1p</td><td>Connected to Port 1 lane Tx1 Non-Inverted Data</td></tr>
+                    <tr><td>18</td><td>Rx1n</td><td>Connected to Port 1 lane Tx1 Inverted Data</td></tr>
+                    <tr><td>19</td><td>GND</td><td>Ground</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>20</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>21</td><td>Rx2n</td><td>Connected to Port 1 lane Tx2 Inverted Data</td></tr>
+                    <tr><td>22</td><td>Rx2p</td><td>Connected to Port 1 lane Tx2 Non-Inverted Data</td></tr>
+                    <tr><td>23</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>24</td><td>Rx4n</td><td>Connected to Port 2 lane Tx2 Inverted Data</td></tr>
+                    <tr><td>25</td><td>Rx4p</td><td>Connected to Port 2 lane Tx2 Non-Inverted Data</td></tr>
+                    <tr><td>26</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>27</td><td>ModPrsl</td><td>Cable Present</td></tr>
+                    <tr><td>28</td><td>IntL</td><td>Interrupt</td></tr>
+                    <tr><td>29</td><td>Vcc Tx</td><td>+3.3V power supply transmitter</td></tr>
+                    <tr><td>30</td><td>Vcc1</td><td>+3.3V Power Supply</td></tr>
+                    <tr><td>31</td><td>LPMode</td><td>Low Power Mode</td></tr>
+                    <tr><td>32</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>33</td><td>Tx3p</td><td>Connected to Port 2 lane Rx1 Non-Inverted Data</td></tr>
+                    <tr><td>34</td><td>Tx3n</td><td>Connected to Port 2 lane Rx1 Inverted Data</td></tr>
+                    <tr><td>35</td><td>GND</td><td>Ground</td></tr>
+                    <tr><td>36</td><td>Tx1p</td><td>Connected to Port 1 lane Rx1 Non-Inverted Data</td></tr>
+                    <tr><td>37</td><td>Tx1n</td><td>Connected to Port 1 lane Rx1 Inverted Data</td></tr>
+                    <tr><td>38</td><td>GND</td><td>Ground</td></tr>
+                </tbody>
+            </table>
+        </div>
+     </div>`,
+        com6: `<div class="table-container">
+        <h1 class="main-title">USB C</h1>
+    
+        <div class="columns-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>A1</td><td>GND</td><td>Ground return</td></tr>
+                    <tr><td>A2</td><td>SSTXp1 (TX1+)</td><td>SuperSpeed differential pair 1 TX, positive</td></tr>
+                    <tr><td>A3</td><td>SSTXn1 (TX1-)</td><td>SuperSpeed differential pair 1 TX, negative</td></tr>
+                    <tr><td>A4</td><td>VBUS</td><td>Bus power (Typically +5V, up to +48V with PD)</td></tr>
+                    <tr><td>A5</td><td>CC1</td><td>Configuration Channel 1</td></tr>
+                    <tr><td>A6</td><td>D+</td><td>USB 2.0 Differential Pair, positive</td></tr>
+                    <tr><td>A7</td><td>D-</td><td>USB 2.0 Differential Pair, negative</td></tr>
+                    <tr><td>A8</td><td>SBU1</td><td>Sideband Use 1</td></tr>
+                    <tr><td>A9</td><td>VBUS</td><td>Bus power</td></tr>
+                    <tr><td>A10</td><td>SSRXn2 (RX2-)</td><td>SuperSpeed differential pair 2 RX, negative</td></tr>
+                    <tr><td>A11</td><td>SSRXp2 (RX2+)</td><td>SuperSpeed differential pair 2 RX, positive</td></tr>
+                    <tr><td>A12</td><td>GND</td><td>Ground return</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>B12</td><td>GND</td><td>Ground return</td></tr>
+                    <tr><td>B11</td><td>SSRXp1 (RX1+)</td><td>SuperSpeed differential pair 1 RX, positive</td></tr>
+                    <tr><td>B10</td><td>SSRXn1 (RX1-)</td><td>SuperSpeed differential pair 1 RX, negative</td></tr>
+                    <tr><td>B9</td><td>VBUS</td><td>Bus power</td></tr>
+                    <tr><td>B8</td><td>SBU2</td><td>Sideband Use 2</td></tr>
+                    <tr><td>B7</td><td>D-</td><td>USB 2.0 Differential Pair, negative</td></tr>
+                    <tr><td>B6</td><td>D+</td><td>USB 2.0 Differential Pair, positive</td></tr>
+                    <tr><td>B5</td><td>CC2</td><td>Configuration Channel 2</td></tr>
+                    <tr><td>B4</td><td>VBUS</td><td>Bus power</td></tr>
+                    <tr><td>B3</td><td>SSTXn2 (TX2-)</td><td>SuperSpeed differential pair 2 TX, negative</td></tr>
+                    <tr><td>B2</td><td>SSTXp2 (TX2+)</td><td>SuperSpeed differential pair 2 TX, positive</td></tr>
+                    <tr><td>B1</td><td>GND</td><td>Ground return</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>`,
+        com7:`<div class="table-container">
+        <h1 class="main-title">USB A</h1>
+    
+        <div class="columns-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Vcc</td><td>+5V power supply</td></tr>
+                    <tr><td>2</td><td>D-</td><td>Data-</td></tr>
+                    <tr><td>3</td><td>D+</td><td>Data+</td></tr>
+                    <tr><td>4</td><td>GND</td><td>Ground</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>`,
+        com8:`<div class="table-container">
+        <h1 class="main-title">USB Micro A and B</h1>
+    
+        <div class="columns-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pin No.</th>
+                        <th>Signal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>VBUS</td><td>+5V</td></tr>
+                    <tr><td>2</td><td>D-</td><td>Data-</td></tr>
+                    <tr><td>3</td><td>D+</td><td>Data+</td></tr>
+                    <tr><td>4</td><td>ID</td><td>Identifies if A or B plug is used</td></tr>
+                    <tr><td>5</td><td>GND</td><td>Ground</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>`
+    };
+
+    function showContent(id) {
+        document.getElementById('content-container').innerHTML = content[id];
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        document.querySelector(`[onclick="showContent('${id}')"]`).classList.add('active');
+    }
+
+    // Show initial content on page load
+    showContent('com1');
+</script>
+
+</body>
+</html>

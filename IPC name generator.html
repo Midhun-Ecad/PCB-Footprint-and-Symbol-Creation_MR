@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electronic Package Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f4f4f400;
+        background-image: url("Image/Sub_2.jpg"); /* <--- IMPORTANT: Replace 'your-image-name.jpg' with your actual image file name and extension! */
+        background-size: cover; /* This makes the background image cover the entire element */
+        background-position: center; /* Centers the background image */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-attachment: fixed; /* Keeps the background image fixed when scrolling */
+        /* --- END OF ADDED BACKGROUND IMAGE PROPERTIES --- */
+    }
+    .container {
+        display: flex;
+        height: 100vh;
+    }
+    .left {
+        width: 25%;
+        background: #2c3e501d;
+        color: rgb(248, 246, 246);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+    .left h2 {
+        margin: 0 0 20px 0;
+        border-bottom: 2px solid #1abc9c;
+        padding-bottom: 10px;
+        color: rgb(14, 13, 13);
+    }
+    .menu-item {
+        padding: 12px;
+        margin-bottom: 10px;
+        background: #34495e;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    .menu-item:hover, .menu-item.active {
+        background: #bc1a1af5;
+    }
+    .right {
+        width: 75%;
+        padding: 70px;
+        background: rgba(255, 255, 255, 0);
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+    }
+    .form-section {
+        flex: 1;
+    }
+    .form-group {
+        display: flex;
+        align-items: center;
+        gap: 10 px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    label {
+        width: 120px;
+        font-size: 15px;
+    }
+    input, select {
+        flex: 0.5;
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 14px;
+        width: 100px;
+        height: 30px;
+    }
+    .output {
+        margin-top: 1px;
+        margin-left: 200px;
+        font-weight: bold;
+        font-family: Times New Roman Font;
+        font-size: 20px;
+        color: rgb(6, 6, 6);
+        background: #bc1a1a00;
+    }
+    .image-section {
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .image-section img {
+        width: 300px;
+        height: 300px;
+        border: 1px solid #09090900;
+        margin-bottom: 10px;
+        background: #ffffff00;
+        padding: 10px;
+    }
+    .generate-button {
+        background-color: #38e004;
+        color: rgb(14, 13, 13);
+        padding: 10px 15px;
+        border: #f1230d;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+    .generate-button:hover {
+        background-color: #16a085;
+    }
+    h{
+    text-align: center;
+    color: #040404;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: Bahnschrift Condensed;}
+    h2{ 
+       text-align: center;
+      color: #040404;
+      margin-top: -40px;
+    margin-bottom: 10px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: Bahnschrift Condensed;}
+    .icon-back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.icon-back-button img {
+  width: 40px; /* Adjust as needed */
+  height: auto;
+}
+
+</style>
+</head>
+<body>
+    
+<button class="icon-back-button" onclick="history.back();">
+  <img src="Image/home_button_1.png" alt="Back">
+</button>
+
+<div class="container">
+    <div class="left">
+        <h2>Packages</h2>
+        <div class="menu-item active" onclick="showForm('radial')">Capacitor - Aluminum Radial</div>
+        <div class="menu-item" onclick="showForm('axial')">Capacitor - Axial lead</div>
+        <div class="menu-item" onclick="showForm('Aluminum_Surface_Mount')">Aluminum Surface Mount</div>
+        <div class="menu-item" onclick="showForm('Disc_Radial_Lead')">Disc Radial Lead(Ovel body)</div>
+        <div class="menu-item" onclick="showForm('Disc_Radial_Lead_rec')">Disc Radial Lead(Rectangle body)</div>
+        <div class="menu-item" onclick="showForm('Chip_Array_Concave')">Chip Array - Concave</div>
+        <div class="menu-item" onclick="showForm('BGA')">Ball Grid Array</div>
+        <div class="menu-item" onclick="showForm('QFN')">QFN</div>
+        <div class="menu-item" onclick="showForm('QFP')">QFP</div>
+        <div class="menu-item" onclick="showForm('SON')">Small Outline No-Lead</div>
+        <div class="menu-item" onclick="showForm('SOP')">Small Outline Package</div>
+    </div>
+    <div class="right">
+      
+        <div class="form-section">
+          <h2>IPC Name Generator</h2><br>
+            <div id="form-container"></div>
+            <button class="generate-button" onclick="updateOutput()">Generate Output</button>
+            <div class="output" id="output"></div>
+        </div>
+        <div class="image-section">
+            <img id="packageImage" src="" alt="Package Image">
+        </div>
+    </div>
+</div>
+
+<script>
+    const forms = {
+        radial: [
+            { label: "Lead Spacing", id: "leadSpacing" },
+            { label: "Lead Dia", id: "leadDia" },
+            { label: "Body Dia", id: "bodyDia" },
+            { label: "Body Length", id: "bodyLength" }
+        ],
+        axial: [
+            { label: "Pitch", id: "pitch" },
+            { label: "Lead Dia", id: "leadDiaAxial" },
+            { label: "Length", id: "lengthAxial" },
+            { label: "Width", id: "widthAxial" }
+        ],
+        Aluminum_Surface_Mount: [
+            { label: "Length", id: "LengthASM" },
+            { label: "width", id: "widthASM" },
+            { label: "Height", id: "HeightASM" }
+        ],
+        Disc_Radial_Lead: [
+            { label: "Pitch", id: "pitchDRL" },
+            { label: "Lead Dia", id: "leadDiaDRL" },
+            { label: "Length", id: "lengthDRL" },
+            { label: "Width", id: "widthDRL" },
+            { label: "Height", id: "heightDRL" }
+        ],
+        Disc_Radial_Lead_rec: [
+            { label: "Pitch", id: "pitchDRLr" },
+            { label: "Lead Dia", id: "leadDiaDRLr" },
+            { label: "Length", id: "lengthDRLr" },
+            { label: "Width", id: "widthDRLr" },
+            { label: "Height", id: "heightDRLr" }
+        ],
+        Chip_Array_Concave: [
+            { label: "Pitch", id: "pitch1" },
+            { label: "Length", id: "length1" },
+            { label: "Width", id: "width1" },
+            { label: "Height", id: "height1" },
+            { label: "Pin Count", id: "Pincount1" }
+        ],
+        BGA: [
+            { label: "Pin Count", id: "Pincount2" },
+            { label: "Pitch", id: "Pitch2" },
+            { label: "N_X", id: "Nx2" },
+            { label: "N_Y", id: "Ny2" },
+            { label: "Body_X", id: "BX2" },
+            { label: "Body_Y", id: "BY2" },
+            { label: "Height", id: "Height2" }
+        ],
+        QFN: [
+            { label: "Pitch", id: "Ptich3" },
+            { label: "Length", id: "Length3" },
+            { label: "Width", id: "Width3" },
+            { label: "Height", id: "Height3" },
+            { label: "No of Pins", id: "Pins3" },
+            { label: "Epad X", id: "Epadx3" },
+            { label: "Epad Y", id: "Epady3" }
+        ],
+        QFP: [
+            { label: "Pitch", id: "Ptich4" },
+            { label: "Span Length", id: "SLength4" },
+            { label: "Span Width", id: "SWidth4" },
+            { label: "Height", id: "Height4" },
+            { label: "No of Pins", id: "Pins4" },
+            { label: "Epad X", id: "Epadx4" },
+            { label: "Epad Y", id: "Epady4" }
+        ],
+        SON: [
+            { label: "Pitch", id: "Ptich5" },
+            { label: "Length", id: "Length5" },
+            { label: "Width", id: "Width5" },
+            { label: "Height", id: "Height5" },
+            { label: "No of Pins", id: "Pins5" },
+            { label: "Epad X", id: "Epadx5" },
+            { label: "Epad Y", id: "Epady5" }
+        ],
+        SOP: [
+            { label: "Pitch", id: "Ptich6" },
+            { label: "Lead Length", id: "Length6" },
+            { label: "Height", id: "Height6" },
+            { label: "No of Pins", id: "Pins6" },
+            { label: "Epad X", id: "Epadx6" },
+            { label: "Epad Y", id: "Epady6" }
+        ]
+    };
+
+    const images = {
+        radial: "Image/Radial.png",
+        axial: "Image/axial.png",
+        Aluminum_Surface_Mount: "Image/Aluminum_Surface_Mount.png",
+        Disc_Radial_Lead: "Image/ovel_body.png",
+        Disc_Radial_Lead_rec: "Image/radial_rec.png",
+        Chip_Array_Concave: "Image/chip_array.png",
+        BGA: "Image/bga.png",
+        QFN: "Image/qfn.png",
+        QFP: "Image/qfp.png",
+        SON: "Image/son.png",
+        SOP: "Image/sop.png",
+    };
+
+    let currentForm = 'radial';
+
+    function showForm(type) {
+        currentForm = type;
+
+        document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+        document.querySelector(`.menu-item[onclick="showForm('${type}')"]`).classList.add('active');
+
+        let html = '';
+        forms[type].forEach(field => {
+            html += `
+                <div class="form-group">
+                    <label for="${field.id}">${field.label}</label>
+                    <input type="number" id="${field.id}" placeholder="Enter ${field.label}">
+                </div>
+            `;
+        });
+
+        html += `
+            <div class="form-group">
+                <label for="packageType">Package Type</label>
+                <select id="packageType">
+                    <option value="<Package type>">Package Type</option>
+                    <option value="CAP">CAP</option>
+                    <option value="RES">RES</option>
+                    <option value="IND">IND</option>
+                    <option value="FUSE">FUSE</option>
+                    <option value="BGA">BGA</option>
+                    <option value="FBGA">FBGA</option>
+                    <option value="CBGA">CBGA</option>
+                    <option value="FCBGA">FCBGA</option>
+                    <option value="QFN">QFN</option>
+                    <option value="PQFN">PQFN</option>
+                    <option value="TQFN">TQFN</option>
+                    <option value="QFP">QFP</option>
+                    <option value="TQFP">TQFP</option>
+                    <option value="SOP">SOP</option>
+                    <option value="SOIC">SOIC</option>
+                    <option value="TSOP">TSOP</option>
+                    <option value="SSOP">SSOP</option>
+                    <option value="TSSOP">TSSOP</option>
+                    <option value="SON">SON</option>
+                    <option value="WSON">WSON</option>
+                </select>
+            </div>
+        `;
+
+        document.getElementById('form-container').innerHTML = html;
+        document.getElementById('packageImage').src = images[type];
+        document.getElementById('output').innerText = 'Output:';
+    }
+
+    function updateOutput() {
+        const currentFields = forms[currentForm];
+        for (const field of currentFields) {
+            const inputElement = document.getElementById(field.id);
+            if (inputElement && inputElement.value.trim() === '') {
+                alert(`Please fill in the '${field.label}' field.`);
+                inputElement.focus();
+                return;
+            }
+        }
+
+        const pkg = document.getElementById('packageType') ? document.getElementById('packageType').value : 'CAP';
+        let values = currentFields.map(field => {
+            let val = parseFloat(document.getElementById(field.id)?.value) || 0;
+            return val * 100;
+        });
+
+        let outputStr = '';
+        if (currentForm === 'radial') {
+            outputStr = `TJA_${pkg}PRD${values[0]}W${values[1]}D${values[2]}H${values[3]}_A`;
+        } else if (currentForm === 'axial') {
+            outputStr = `TJA_${pkg}AD${values[0]}W${values[1]}L${values[2]}D${values[3]}B_A`;
+        } else if (currentForm === 'Aluminum_Surface_Mount') {
+            outputStr = `TJA_${pkg}AE${values[0]}X${values[2]}_A`;
+        } else if (currentForm === 'Disc_Radial_Lead') {
+            outputStr = `TJA_${pkg}PRD${values[0]}W${values[1]}OV${values[2]}T${values[3]}H${values[4]}_A`;
+        } else if (currentForm === 'Disc_Radial_Lead_rec') {
+            outputStr = `TJA_${pkg}RRD${values[0]}W${values[1]}D${values[2]}T${values[3]}H${values[4]}_A`;
+        } else if (currentForm === 'Chip_Array_Concave') {
+            outputStr = `TJA_${pkg}CAV${values[0]}P${values[1]}X${values[2]}X${values[3]}-${values[4]/100}_A`;
+        } else if (currentForm === 'BGA') {
+            outputStr = `TJA_${pkg}${values[0] / 100}N${values[1]}P${values[2] / 100}X${values[3] / 100}_${values[4]}X${values[5]}X${values[6]}_A`;
+        } 
+        else if (currentForm === 'QFN') {
+            if (values[5] === values[6]) {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}X${values[3]}-${(values[4] / 100)}TPS${values[5]}_A`;
+            } else {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}X${values[3]}-${(values[4] / 100)}TP${values[5]}X${values[6]}_A`;
+            }
+        } else if (currentForm === 'QFP') {
+            if (values[5] === 0 && values[6] === 0) {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}X${values[3]}-${(values[4] / 100)}_A`;
+            } else if (values[5] === values[6]) {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}X${values[3]}-${(values[4] / 100)}-TPS${values[5]}_A`;
+            } else {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}X${values[3]}-${(values[4] / 100)}-TP${values[5]}X${values[6]}_A`;
+            }
+        } else if (currentForm === 'SON') {
+            if (values[5] === 0 && values[6] === 0) {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}X${values[3]}-${(values[4] / 100)}_A`;
+            } else if (values[5] === values[6]) {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}X${values[3]}-${(values[4] / 100)}-TPS${values[5]}_A`;
+            } else {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}X${values[3]}-${(values[4] / 100)}-TP${values[5]}X${values[6]}_A`;
+            }
+        } else if (currentForm === 'SOP') {
+            if (values[4] === 0 && values[5] === 0) {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}-${(values[3] / 100)}_A`;
+            } else if (values[4] === values[5]) {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}-${(values[3] / 100)}-TPS${values[4]}_A`;
+            } else {
+                outputStr = `TJA_${pkg}${values[0]}P${values[1]}X${values[2]}-${(values[3] / 100)}-TP${values[4]}X${values[5]}_A`;
+            }
+        }
+
+        document.getElementById('output').innerText = ` ${outputStr}`;
+    }
+
+    showForm('radial');
+</script>
+
+</body>
+</html>
